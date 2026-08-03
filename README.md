@@ -1,13 +1,20 @@
-# Journey Companion
+# Journey Companion - Kanto Map & Corrected Inventory Edition
 
-A standalone offline companion app for the Unbeatable Pokémon tabletop RPG.
+This GitHub Pages build includes:
 
-## GitHub Pages deployment
+- Interactive Kanto region map
+- Professor complete-Pokedex access
+- Corrected market and item inventory
+- 641 item records from the supplied inventory PDF
+- Complete item descriptions and available source metadata
+- Offline Trainer, Pokemon, campaign, travel, battle, and Professor tools
 
-1. Create a new GitHub repository.
-2. Upload `index.html`, `README.md`, and `.nojekyll` to the repository root.
-3. Open **Settings → Pages**.
-4. Under **Build and deployment**, choose **Deploy from a branch**.
-5. Select the `main` branch and `/ (root)`, then save.
+## Publish with GitHub Pages
 
-The app stores campaign information locally in the browser. Export a backup before clearing browser data or moving to another device.
+1. Upload `index.html`, `.nojekyll`, and `README.md` to the repository root.
+2. Open **Settings -> Pages**.
+3. Select **Deploy from a branch**.
+4. Choose `main` and `/ (root)`.
+5. Save.
+
+Campaign data is stored locally in the browser. Export a backup before clearing browser data or changing devices.
