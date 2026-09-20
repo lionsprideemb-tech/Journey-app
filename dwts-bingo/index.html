@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#160b1d">
+<title>DWTS Season 35 Bingo</title>
+<style>
+:root{
+  --bg:#130817;--panel:#24112d;--panel2:#31173b;--text:#fff8fc;--muted:#d9c7d4;
+  --pink:#d86eae;--pink2:#f3a9d1;--blue:#65c8f5;--gold:#ffe36c;--line:#72516c;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:
+radial-gradient(circle at 50% -20%,#3f1f56 0,#1c0d26 38%,#100713 100%);
+color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;min-height:100%}
+body{padding:env(safe-area-inset-top) 10px env(safe-area-inset-bottom)}
+main{max-width:820px;margin:0 auto;padding:18px 0 30px}
+.hero{text-align:center;margin-bottom:14px}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--pink2);font-weight:900}
+h1{font-size:clamp(34px,9vw,62px);line-height:.92;margin:8px 0 6px;text-shadow:0 0 18px rgba(255,72,193,.45)}
+h1 span{display:block;color:var(--pink2)}
+.sub{color:var(--muted);font-size:15px;line-height:1.35;margin:0 auto;max-width:620px}
+.card{background:rgba(36,17,45,.9);border:1px solid var(--line);border-radius:18px;padding:14px}
+.hidden{display:none!important}
+.chooser{display:grid;grid-template-columns:1fr;gap:10px;margin-top:16px}
+.choose{min-height:68px;border:1px solid #8c6684;border-radius:14px;background:linear-gradient(135deg,#3b1c48,#26112e);
+color:var(--text);font-size:18px;font-weight:900;padding:12px;text-align:left}
+.choose small{display:block;margin-top:4px;color:var(--muted);font-size:12px;font-weight:600}
+.topbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:10px}
+.back,.share,.reset{min-height:44px;border:1px solid var(--line);border-radius:11px;background:var(--panel2);color:var(--text);padding:9px 12px;font-weight:800}
+.titleWrap{min-width:0}
+.cardTitle{font-weight:1000;font-size:20px}
+.cardHint{font-size:12px;color:var(--muted);margin-top:2px}
+.nameRow{display:flex;gap:8px;align-items:center;margin:10px 0}
+input{min-width:0;flex:1;border:1px solid var(--line);border-radius:11px;background:#1a0d21;color:var(--text);padding:11px 12px;font-size:16px}
+.status{display:flex;justify-content:space-between;gap:10px;align-items:center;color:var(--muted);font-size:13px;font-weight:800;margin:8px 0 12px}
+.win{color:var(--gold);font-size:18px;font-weight:1000}
+.board{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+.cell{aspect-ratio:1/1;border:1px solid #f0b4d4;border-radius:8px;background:var(--pink);color:#fff;
+padding:4px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:clamp(9px,2.45vw,14px);
+line-height:1.08;font-weight:900;position:relative;touch-action:manipulation}
+.cell.marked{background:var(--blue);color:#071118;outline:3px solid white;outline-offset:-3px}
+.cell.marked::after{content:"✓";position:absolute;right:4px;top:1px;font-size:15px;font-weight:1000}
+.cell.free{background:#b8b8c8;color:#18131b}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.toast{margin-top:10px;min-height:18px;color:var(--gold);font-size:13px;font-weight:800}
+.rules{margin-top:14px;color:var(--muted);font-size:13px;line-height:1.4}
+.footer{text-align:center;color:#9f879b;font-size:11px;margin-top:16px}
+@media(min-width:600px){
+  .chooser{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:420px){
+  main{padding-top:10px}.board{gap:3px}.cell{padding:3px;border-radius:6px;font-size:9px}
+  .card{padding:10px}.cardTitle{font-size:18px}
+}
+</style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <div class="eyebrow">Premiere Night Game</div>
+    <h1>🪩 Dancing with the Stars <span>Season 35 Bingo</span></h1>
+    <p class="sub">Three different mobile bingo cards for your watch party. Pick your card, share your personal link, and tap squares as they happen.</p>
+  </section>
+
+  <section id="chooser" class="card">
+    <div style="font-weight:1000;font-size:20px;margin-bottom:4px">Choose your card</div>
+    <div style="color:var(--muted);font-size:13px">Each player should open a different card on their own phone.</div>
+    <div class="chooser">
+      <button class="choose" data-card="1">Player 1<small>Open Card 1</small></button>
+      <button class="choose" data-card="2">Player 2<small>Open Card 2</small></button>
+      <button class="choose" data-card="3">Player 3<small>Open Card 3</small></button>
+    </div>
+  </section>
+
+  <section id="game" class="card hidden">
+    <div class="topbar">
+      <div class="titleWrap">
+        <div id="cardTitle" class="cardTitle">Card 1</div>
+        <div class="cardHint">Five in a row, column, or diagonal = BINGO</div>
+      </div>
+      <button id="backBtn" class="back" type="button">All cards</button>
+    </div>
+
+    <div class="nameRow">
+      <input id="playerName" maxlength="24" value="Player 1" aria-label="Player name">
+      <button id="shareBtn" class="share" type="button">Share my card</button>
+    </div>
+
+    <div class="status">
+      <span id="count">1 / 25 marked</span>
+      <span id="win" class="win"></span>
+    </div>
+
+    <div id="board" class="board"></div>
+
+    <div class="actions">
+      <button id="resetBtn" class="reset" type="button">Reset this card</button>
+    </div>
+    <div id="toast" class="toast" aria-live="polite"></div>
+
+    <div class="rules">Tap a square when it happens. The center space is free. Your checked squares save on your own phone/browser, so everyone can play independently from the same site.</div>
+  </section>
+
+  <div class="footer">Unofficial fan-made watch-party bingo.</div>
+</main>
+
+<script>
+(() => {
+const cards = [
+[
+"Someone jumps over their partner","A judge talks about chemistry","Fresh Prince reference","Someone wears feathers","“I wanna get that Mirrorball”",
+"Bruno talks about hip action","Someone scores above an 8","Food or chef joke","Someone uses a prop","A judge goes over their time",
+"“I've never done ballroom before”","Audience boos a judge","FREE 🪩","Olympic or Paralympic achievement mentioned","Someone makes a face at the camera",
+"Alfonso does a little dance","Someone sings along to their song","A judge stands up after a dance","Savannah Bananas / baseball mention","Julianne wears a weird outfit",
+"Someone gets emotional","Every judge gives a different score","Hanson / music reference","Someone says a relative is a huge fan","Bruno takes his jacket off"
+],
+[
+"“It's been my dream to do DWTS”","Someone scores below a 5","Someone wears a yellow costume","A judge talks about chemistry","Someone uses a prop",
+"Someone falls or stumbles in rehearsal footage","Derek demonstrates proper form","“I love this song!”","Fresh Prince reference","Someone jumps over their partner",
+"Food or chef joke","Someone says they're a huge fan of the show","FREE 🪩","Audience boos a judge","Someone scores above an 8",
+"Julianne joins a dance moment","Bruno gives a dramatic compliment","Olympic or Paralympic achievement mentioned","Someone cries happy tears","Alfonso jokes with a contestant",
+"Savannah Bananas / baseball mention","“I wanna get that Mirrorball”","Every judge gives a different score","Someone wears fringe","A judge goes over their time"
+],
+[
+"Hanson / music reference","Someone wears feathers","A judge stands up after a dance","“Aww, thanks Julianne”","Someone uses a prop",
+"Someone scores above an 8","Fresh Prince reference","Someone says a relative is a big fan","Bruno talks about hip action","Someone makes a face at the camera",
+"Derek gives very technical feedback","Someone jumps over their partner","FREE 🪩","Food or chef joke","“I've never done ballroom before”",
+"Olympic or Paralympic achievement mentioned","Someone gets emotional","Alfonso dances for a second","Julianne wears a weird outfit","Audience boos a judge",
+"Savannah Bananas / baseball mention","Someone sings along to their song","“It's been my dream to do DWTS”","Every judge gives a different score","Bruno takes his jacket off"
+]
+];
+
+const lines = [
+[0,1,2,3,4],[5,6,7,8,9],[10,11,12,13,14],[15,16,17,18,19],[20,21,22,23,24],
+[0,5,10,15,20],[1,6,11,16,21],[2,7,12,17,22],[3,8,13,18,23],[4,9,14,19,24],
+[0,6,12,18,24],[4,8,12,16,20]
+];
+
+const chooser = document.getElementById("chooser");
+const game = document.getElementById("game");
+const board = document.getElementById("board");
+const cardTitle = document.getElementById("cardTitle");
+const nameInput = document.getElementById("playerName");
+const count = document.getElementById("count");
+const win = document.getElementById("win");
+const toast = document.getElementById("toast");
+let active = null;
+let state = null;
+
+function stateKey(n){ return "dwts35_card_" + n + "_state"; }
+function nameKey(n){ return "dwts35_card_" + n + "_name"; }
+
+function getState(n){
+  let s = Array(25).fill(false); s[12] = true;
+  try {
+    const saved = JSON.parse(localStorage.getItem(stateKey(n)) || "null");
+    if (Array.isArray(saved) && saved.length === 25) s = saved.map(Boolean);
+  } catch(e){}
+  s[12] = true;
+  return s;
+}
+function save(){
+  if (!active) return;
+  try {
+    localStorage.setItem(stateKey(active), JSON.stringify(state));
+    localStorage.setItem(nameKey(active), nameInput.value || ("Player " + active));
+  } catch(e){}
+}
+function hasBingo(){ return lines.some(line => line.every(i => state[i])); }
+function updateStatus(){
+  count.textContent = state.filter(Boolean).length + " / 25 marked";
+  win.textContent = hasBingo() ? "🎉 BINGO!" : "";
+}
+function render(){
+  board.innerHTML = "";
+  cards[active-1].forEach((label,i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "cell" + (i===12 ? " free" : "") + (state[i] ? " marked" : "");
+    b.textContent = label;
+    b.setAttribute("aria-pressed", state[i] ? "true" : "false");
+    b.addEventListener("click", () => {
+      if (i===12) return;
+      state[i] = !state[i];
+      save();
+      render();
+    });
+    board.appendChild(b);
+  });
+  updateStatus();
+}
+function openCard(n, push=true){
+  active = n;
+  state = getState(n);
+  cardTitle.textContent = "Player " + n + " — Card " + n;
+  let savedName = null;
+  try { savedName = localStorage.getItem(nameKey(n)); } catch(e){}
+  nameInput.value = savedName || ("Player " + n);
+  chooser.classList.add("hidden");
+  game.classList.remove("hidden");
+  toast.textContent = "";
+  render();
+  if (push) {
+    const url = new URL(location.href);
+    url.searchParams.set("card", n);
+    history.pushState({card:n},"",url);
+  }
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function showChooser(push=true){
+  active = null;
+  chooser.classList.remove("hidden");
+  game.classList.add("hidden");
+  if (push) {
+    const url = new URL(location.href);
+    url.searchParams.delete("card");
+    history.pushState({},"",url);
+  }
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll(".choose").forEach(btn => {
+  btn.addEventListener("click", () => openCard(Number(btn.dataset.card)));
+});
+document.getElementById("backBtn").addEventListener("click", () => showChooser());
+nameInput.addEventListener("input", save);
+document.getElementById("resetBtn").addEventListener("click", () => {
+  state = Array(25).fill(false); state[12] = true; save(); render(); toast.textContent = "Card reset.";
+});
+document.getElementById("shareBtn").addEventListener("click", async () => {
+  const url = new URL(location.href);
+  url.searchParams.set("card", active);
+  const shareData = {title:"DWTS Season 35 Bingo — Card " + active, text:"This is my DWTS bingo card!", url:url.toString()};
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+      toast.textContent = "Share sheet opened.";
+    } else if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(url.toString());
+      toast.textContent = "Card link copied!";
+    } else {
+      toast.textContent = url.toString();
+    }
+  } catch(e) {
+    if (e && e.name !== "AbortError") toast.textContent = "Use your browser's Share button to send this card.";
+  }
+});
+window.addEventListener("popstate", () => {
+  const c = Number(new URL(location.href).searchParams.get("card"));
+  if ([1,2,3].includes(c)) openCard(c,false); else showChooser(false);
+});
+const initial = Number(new URL(location.href).searchParams.get("card"));
+if ([1,2,3].includes(initial)) openCard(initial,false);
+})();
+</script>
+</body>
+</html>
